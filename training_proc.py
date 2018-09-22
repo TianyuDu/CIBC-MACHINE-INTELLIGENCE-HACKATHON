@@ -28,7 +28,11 @@ def train_proc(para: dict) -> None:
 
     print(f"Scaled_train data shape = {scaled_train.shape}")
 
-    model = construct_model(learning_rate=para["learning_rate"])
+    model = construct_model(
+        learning_rate=para["learning_rate"],
+        activation=para["activation"])
+    print("Model generated.")
+    keras.utils.print_summary(model)
 
     start_time = datetime.datetime.now()
     hist = model.fit(

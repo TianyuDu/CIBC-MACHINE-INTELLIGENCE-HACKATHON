@@ -31,7 +31,8 @@ if __name__ == "__main__":
         "epochs": 5,
         "batch_size": 2048,
         "shuffle": True,
-        "validation_split": 0.1
+        "validation_split": 0.1,
+        "activation": "relu"
     }
 
     train_proc(para=parameters)

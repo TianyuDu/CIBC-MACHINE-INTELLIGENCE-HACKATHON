@@ -1,0 +1,6 @@
+{'batch_size': 2048,
+ 'epochs': 5,
+ 'learning_rate': 0.005,
+ 's3_url': '/Users/tianyudu/Downloads/cibc_data_cleaned_to_train.csv',
+ 'shuffle': True,
+ 'validation_split': 0.1}

@@ -40,13 +40,14 @@ def construct_model(input_dim: int=5,
                     nb_epoch: int=100,
                     encoding_dim: int=16,
                     batch_size: int=32,
-                    learning_rate: float=0.05) -> keras.Sequential:
+                    learning_rate: float=0.05,
+                    activation: str="tanh") -> keras.Sequential:
     model = keras.Sequential()
     model.add(
         keras.layers.Dense(
             encoding_dim,
             input_dim=input_dim,
-            activation="tanh",
+            activation=activation,
             activity_regularizer=keras.regularizers.l1(10e-5),
             name="encoder0"
         )
@@ -54,19 +55,19 @@ def construct_model(input_dim: int=5,
     model.add(
         keras.layers.Dense(
             int(encoding_dim / 2),
-            activation="tanh",
+            activation=activation,
             name="encoder1")
     )
     model.add(
         keras.layers.Dense(
             int(2),
-            activation="tanh",
+            activation=activation,
             name="encoder2")
     )
     model.add(
         keras.layers.Dense(
             int(encoding_dim / 2),
-            activation="tanh",
+            activation=activation,
             name="decoder0")
     )
     model.add(
