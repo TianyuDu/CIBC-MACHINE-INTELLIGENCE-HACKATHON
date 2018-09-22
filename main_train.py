@@ -1,28 +1,16 @@
-import keras
-import pandas as pd
-import numpy as np
-from sklearn.preprocessing import StandardScaler
 import datetime
 import os
 
+import keras
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
 import data_proc
-from data_proc import *
 import model_methods
+from data_proc import *
 from model_methods import *
 from training_proc import *
-
-lr_start = float(
-    input("Learning rate search start >>> ")
-)
-
-lr_end = float(
-    input("Learning rate search end >>> ")
-)
-
-rates = np.linspace(lr_start, lr_end, 5)
-
-for lr in rates:
-    pass
 
 if __name__ == "__main__":
     parameters = {

@@ -36,7 +36,7 @@ def save_model(
     np.savetxt(f"{folder}history.csv", hist)
 
 
-def construct_model(input_dim: int=5,
+def construct_model(input_dim: int=6,
                     nb_epoch: int=100,
                     encoding_dim: int=16,
                     batch_size: int=32,

@@ -1,14 +1,15 @@
-import keras
-import pandas as pd
-import numpy as np
-from sklearn.preprocessing import StandardScaler
 import datetime
 import os
 import pprint
 
+import keras
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
 import data_proc
-from data_proc import *
 import model_methods
+from data_proc import *
 from model_methods import *
 
 
@@ -41,11 +42,11 @@ def train_proc(para: dict) -> None:
     df = read_cleaned_data(d=para["s3_url"])
     X, scaler = normalize_data(df)
     model_output = model.predict(
-        X, 
+        X,
         verbose=1
     )
     scores = get_abnormal_score(
-        pred=model_output, 
+        pred=model_output,
         actual=scaled_train
     )
 
@@ -63,7 +64,7 @@ def train_proc(para: dict) -> None:
     df_score.columns = ["score"]
 
     df_score.to_csv(f"./saved_models/{train_name}/scores.csv")
-    
+
     # np.savetxt(f"./saved_models/{train_name}/scores.csv", scores)
 
     print("Save parameters...")
