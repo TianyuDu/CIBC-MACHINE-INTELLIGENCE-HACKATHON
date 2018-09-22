@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 import datetime
 import os
-from pprint import pprint
+import pprint
 
 import data_proc
 from data_proc import *
@@ -12,17 +12,17 @@ import model_methods
 from model_methods import *
 
 
-parameters = {
-    "s3_url": "https://s3.amazonaws.com/cibchack/data/cibc_data_cleaned_to_train.csv",
-    "learning_rate": 0.005,
-    "epochs": 10,
-    "batch_size": 1024,
-    "shuffle": True,
-    "validation_split": 0.1
-}
+# parameters = {
+#     "s3_url": "https://s3.amazonaws.com/cibchack/data/cibc_data_cleaned_to_train.csv",
+#     "learning_rate": 0.005,
+#     "epochs": 10,
+#     "batch_size": 1024,
+#     "shuffle": True,
+#     "validation_split": 0.1
+# }
 
 
-def train_proc(para: dict=parameters) -> None:
+def train_proc(para: dict) -> None:
     df = read_cleaned_data(d=para["s3_url"])
     scaled_train, scaler = normalize_data(df)
 
@@ -41,7 +41,7 @@ def train_proc(para: dict=parameters) -> None:
         verbose=1
     )
     end_time = datetime.datetime.now()
-    print(f"Time taken {start_time - end_time} seconds.")
+    print(f"Time taken {end_time - start_time} seconds.")
 
     # The model output corresponding to model (standardized)
     df = read_cleaned_data(d=para["s3_url"])
@@ -56,14 +56,24 @@ def train_proc(para: dict=parameters) -> None:
     )
 
     # Save result
+    time_stamp = datetime.datetime.now().timestamp()
+    lr = para["learning_rate"]
+    train_name = f"T_lr_{lr}_{time_stamp}"
+
     print("Saving basic informations...")
-    model_methods.save_model(model, history, file_dir=train_name)
+    model_methods.save_model(model, hist, file_dir=train_name)
 
     print("Saving scores...")
-    np.savetxt(f"./{train_name}/scores.csv", scores)
+    # Add header to scores array
+    df_score = pd.DataFrame(scores)
+    df_score.columns = ["score"]
+
+    df_score.to_csv(f"./saved_models/{train_name}/scores.csv")
+    
+    # np.savetxt(f"./saved_models/{train_name}/scores.csv", scores)
 
     print("Save parameters...")
-    with open(f"./{train_name}/parameters.txt", "wr") as file:
+    with open(f"./saved_models/{train_name}/parameters.txt", "w") as file:
         file.write(pprint.pformat(para))
 
     print("Done.")

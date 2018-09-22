@@ -30,7 +30,7 @@ def save_model(
     model.save_weights(f"{folder}model_weights.h5")
     print("Done")
 
-    # Save history
+    # Save history TODO: add val loss
     print("Saving training history...")
     hist = history.history["loss"]
     np.savetxt(f"{folder}history.csv", hist)
