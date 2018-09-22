@@ -6,15 +6,14 @@ from sklearn.preprocessing import StandardScaler
 file_dir = "/Users/tianyudu/Downloads/claims_final.csv"
 
 def read_file(
-        d: str="https://s3.amazonaws.com/cibchack/data/claims_final.csv") -> pd.DataFrame:
+        d: str) -> pd.DataFrame:
     df = pd.read_csv(d, header=None)
     col_names = ["fam_id", "fam_mem_id", "pro_id", "pro_type", "state", "date", "med_proc_code", "amt"]
     df.columns = col_names
     return df
 
 def read_cleaned_data(
-    d: str="/Users/tianyudu/Downloads/cibc_data_cleaned_to_train.csv"
-    ) -> pd.DataFrame:
+    d: str) -> pd.DataFrame:
     df = pd.read_csv(d, header=0)
     df.drop(columns=["Unnamed: 0"], inplace=True)
     return df

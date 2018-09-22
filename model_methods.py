@@ -3,7 +3,10 @@ import os
 import numpy as np
 import pandas as pd
 
-def save_model(model, file_dir: str=None) -> None:
+def save_model(
+    model, 
+    history, 
+    file_dir: str=None) -> None:
     # Try to create record folder.
     try:
         folder = f"./saved_models/{file_dir}/"
@@ -27,14 +30,10 @@ def save_model(model, file_dir: str=None) -> None:
     model.save_weights(f"{folder}model_weights.h5")
     print("Done")
 
-    # Save model illustration to png file.
-    # print("Saving model visualization...")
-    # keras.utils.plot_model(
-    #     model,
-    #     to_file=f"{folder}model.png",
-    #     show_shapes=True, 
-    #     show_layer_names=True)
-    # print("Done.")
+    # Save history
+    print("Saving training history...")
+    hist = history.history["loss"]
+    np.savetxt(f"{folder}history.csv", hist)
 
 
 def construct_model(input_dim: int=5,
@@ -85,3 +84,13 @@ def construct_model(input_dim: int=5,
     optimizer = keras.optimizers.adam(lr=learning_rate)
     model.compile(optimizer=optimizer, loss="mse")
     return model
+
+
+def get_abnormal_score(
+    pred: np.ndarray,
+    actual: np.ndarray) -> np.ndarray:
+    print("Generating Score")
+    diff = pred - actual
+    diff = diff ** 2
+    score = np.sum(diff, axis=1)
+    return score
