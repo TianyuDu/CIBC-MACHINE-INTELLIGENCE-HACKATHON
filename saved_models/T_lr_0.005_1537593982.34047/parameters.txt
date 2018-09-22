@@ -1,0 +1,7 @@
+{'activation': 'relu',
+ 'batch_size': 512,
+ 'epochs': 50,
+ 'learning_rate': 0.005,
+ 's3_url': '/Users/tianyudu/Downloads/cibc_data_cleaned_to_train.csv',
+ 'shuffle': True,
+ 'validation_split': 0.1}

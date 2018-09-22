@@ -12,16 +12,6 @@ import model_methods
 from model_methods import *
 
 
-# parameters = {
-#     "s3_url": "https://s3.amazonaws.com/cibchack/data/cibc_data_cleaned_to_train.csv",
-#     "learning_rate": 0.005,
-#     "epochs": 10,
-#     "batch_size": 1024,
-#     "shuffle": True,
-#     "validation_split": 0.1
-# }
-
-
 def train_proc(para: dict) -> None:
     df = read_cleaned_data(d=para["s3_url"])
     scaled_train, scaler = normalize_data(df)
