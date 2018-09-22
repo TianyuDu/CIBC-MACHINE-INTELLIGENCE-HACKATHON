@@ -28,19 +28,20 @@ def save_model(model, file_dir: str=None) -> None:
     print("Done")
 
     # Save model illustration to png file.
-    print("Saving model visualization...")
-    keras.utils.plot_model(
-        model,
-        to_file=f"{folder}model.png",
-        show_shapes=True, 
-        show_layer_names=True)
-    print("Done.")
+    # print("Saving model visualization...")
+    # keras.utils.plot_model(
+    #     model,
+    #     to_file=f"{folder}model.png",
+    #     show_shapes=True, 
+    #     show_layer_names=True)
+    # print("Done.")
 
 
 def construct_model(input_dim: int=5,
                     nb_epoch: int=100,
                     encoding_dim: int=16,
-                    batch_size: int=32) -> keras.Sequential:
+                    batch_size: int=32,
+                    learning_rate: float=0.05) -> keras.Sequential:
     model = keras.Sequential()
     model.add(
         keras.layers.Dense(
